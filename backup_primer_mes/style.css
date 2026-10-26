@@ -1,0 +1,1020 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background: #000;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Canvases de fondo y efectos */
+#glowCanvas, #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#constellationCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+#petalsCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 15;
+    pointer-events: none;
+}
+
+#fireworksCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 25;
+    pointer-events: none;
+}
+
+/* ============================================================
+   PANTALLA DE BIENVENIDA
+   ============================================================ */
+.intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, rgba(35, 5, 45, 0.96) 0%, rgba(5, 0, 10, 0.98) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1.2s ease, visibility 1.2s ease;
+    padding: 15px;
+}
+
+.intro-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 20, 147, 0.05) 100%);
+    border: 1.5px solid rgba(255, 105, 180, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 35px 32px 30px;
+    border-radius: 28px;
+    text-align: center;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 0 50px rgba(255, 20, 147, 0.35), inset 0 0 20px rgba(255, 105, 180, 0.1);
+    animation: fadeInScale 1s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.intro-badge {
+    display: inline-block;
+    background: rgba(255, 64, 129, 0.25);
+    border: 1px solid rgba(255, 105, 180, 0.7);
+    color: #ffb6c1;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.heart-pulse {
+    font-size: 45px;
+    margin-bottom: 8px;
+    display: inline-block;
+    animation: heartBeat 1.4s infinite;
+}
+
+.intro-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.6rem;
+    color: #ff80bf;
+    text-shadow: 0 0 18px rgba(255, 105, 180, 0.9);
+    margin-bottom: 16px;
+    line-height: 1.1;
+}
+
+.intro-message-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px dashed rgba(255, 105, 180, 0.35);
+    border-radius: 18px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.intro-quote {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.35rem;
+    color: #ffd6eb;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    text-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+}
+
+.intro-text {
+    font-size: 0.92rem;
+    color: #fce4ec;
+    line-height: 1.65;
+    margin-bottom: 12px;
+    font-weight: 300;
+}
+
+.intro-text strong {
+    color: #ff80bf;
+    font-weight: 600;
+}
+
+.intro-subtext {
+    font-size: 0.85rem;
+    color: #ffb6c1;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #ff4081, #e0006c);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.start-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 35px rgba(255, 64, 129, 0.9);
+}
+
+.intro-author {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.25rem;
+    color: #ff80bf;
+    opacity: 0.9;
+}
+
+/* ============================================================
+   ENCABEZADO DE ANIVERSARIO Y CONTADOR EN VIVO
+   ============================================================ */
+.anniversary-header {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 20;
+    pointer-events: none;
+    animation: fadeInDown 1.5s ease;
+    width: 90%;
+    max-width: 650px;
+}
+
+.anniversary-tag {
+    display: inline-block;
+    background: rgba(255, 20, 147, 0.2);
+    border: 1px solid rgba(255, 105, 180, 0.5);
+    color: #ffb6c1;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 15px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.anniversary-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #ff99cc;
+    text-shadow: 0 0 12px rgba(255, 20, 147, 0.9), 0 0 25px rgba(255, 105, 180, 0.7);
+    letter-spacing: 1px;
+    line-height: 1.15;
+}
+
+.anniversary-subtitle {
+    font-size: 0.88rem;
+    color: #ffd6eb;
+    margin-top: 1px;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Contador en vivo */
+.time-counter-badge {
+    margin-top: 6px;
+    display: inline-block;
+    background: rgba(20, 5, 25, 0.65);
+    border: 1px solid rgba(255, 105, 180, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 5px 16px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.25);
+    pointer-events: auto;
+}
+
+.counter-label {
+    font-size: 0.72rem;
+    color: #ffb6c1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.counter-units {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 30px;
+}
+
+.unit span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 8px #ff4081;
+}
+
+.unit small {
+    font-size: 0.6rem;
+    color: #ff99cc;
+    text-transform: uppercase;
+}
+
+.unit-separator {
+    font-weight: bold;
+    color: #ff4081;
+    font-size: 1rem;
+    margin-top: -6px;
+}
+
+/* ============================================================
+   ESTRELLAS FUGACES INTERACTIVAS
+   ============================================================ */
+.shooting-stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 105, 180, 0.8), transparent);
+    border-radius: 50%;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 0 8px #ff69b4);
+    opacity: 0;
+    transform-origin: left center;
+}
+
+.shooting-star::after {
+    content: '✨';
+    position: absolute;
+    left: 0;
+    top: -9px;
+    font-size: 14px;
+}
+
+.star-wish-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(30, 5, 35, 0.92);
+    border: 1.5px solid #ff4081;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 16px 28px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2000;
+    box-shadow: 0 0 35px rgba(255, 64, 129, 0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.star-wish-popup.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.star-wish-icon {
+    font-size: 26px;
+    animation: heartBeat 1s infinite;
+}
+
+.star-wish-text {
+    font-weight: 600;
+    color: #ffd6eb;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+}
+
+/* ============================================================
+   GALAXIA 3D DE IMÁGENES Y ANILLOS DE ONDAS DE MÚSICA (OPCIÓN 5)
+   ============================================================ */
+#image-galaxy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transition: opacity 3s ease-in;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#image-galaxy.visible {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: grab;
+}
+
+#image-galaxy.visible:active {
+    cursor: grabbing;
+}
+
+/* Anillos de luz que vibran con la música */
+.sun-audio-rings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+    pointer-events: none;
+    z-index: 90;
+}
+
+.audio-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 64, 129, 0.6);
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.5), inset 0 0 15px rgba(255, 64, 129, 0.3);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.audio-ring.ring-1 {
+    width: 150px;
+    height: 150px;
+    animation: audioPulse 2s infinite ease-in-out;
+}
+
+.audio-ring.ring-2 {
+    width: 190px;
+    height: 190px;
+    animation: audioPulse 2s infinite ease-in-out 0.6s;
+    border-color: rgba(255, 174, 0, 0.5);
+    box-shadow: 0 0 25px rgba(255, 174, 0, 0.4);
+}
+
+.audio-ring.ring-3 {
+    width: 230px;
+    height: 230px;
+    animation: audioPulse 2s infinite ease-in-out 1.2s;
+}
+
+@keyframes audioPulse {
+    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.3; }
+    100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
+
+.love-img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    margin-top: -40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 22px rgba(255, 20, 147, 0.85);
+    border: 2px solid rgba(255, 182, 193, 0.7);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.love-img:hover {
+    box-shadow: 0 0 35px rgba(255, 105, 180, 1);
+    transform: scale(1.15) !important;
+}
+
+.galaxy-sun {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    margin-left: -60px;
+    margin-top: -60px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 55px rgba(255, 215, 0, 1), 0 0 110px rgba(255, 69, 0, 0.85);
+    border: 3px solid rgba(255, 174, 0, 0.95);
+    z-index: 100;
+}
+
+/* ============================================================
+   BOTONES DE ACCIÓN FLOTANTES
+   ============================================================ */
+.action-buttons-group {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.action-btn {
+    background: rgba(255, 20, 147, 0.25);
+    border: 1px solid rgba(255, 105, 180, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 0 16px rgba(255, 20, 147, 0.35);
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 20, 147, 0.45);
+    box-shadow: 0 0 26px rgba(255, 20, 147, 0.7);
+}
+
+.action-btn.active {
+    background: linear-gradient(135deg, #ff4081, #e0006c);
+    border-color: #fff;
+    box-shadow: 0 0 25px rgba(255, 64, 129, 0.8);
+}
+
+.reasons-btn {
+    background: rgba(255, 64, 129, 0.3);
+    border-color: rgba(255, 64, 129, 0.7);
+}
+
+.constellation-btn {
+    background: rgba(142, 68, 173, 0.35);
+    border-color: rgba(187, 143, 206, 0.7);
+}
+
+.petals-btn {
+    background: rgba(231, 76, 60, 0.35);
+    border-color: rgba(241, 148, 138, 0.7);
+}
+
+.fireworks-btn {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 64, 129, 0.4));
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    animation: celebrateGlow 2.5s infinite alternate;
+}
+
+@keyframes celebrateGlow {
+    from { transform: scale(1); box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+    to { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 64, 129, 0.8); }
+}
+
+/* ============================================================
+   MODALES PERSONALIZADOS
+   ============================================================ */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.custom-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    color: #ff99cc;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform 0.2s;
+    z-index: 10;
+}
+
+.close-modal-btn:hover {
+    transform: scale(1.2);
+    color: #ff1493;
+}
+
+/* Modal Carta */
+.letter-content {
+    position: relative;
+    background: linear-gradient(135deg, rgba(35, 10, 30, 0.95) 0%, rgba(20, 5, 20, 0.95) 100%);
+    border: 1.5px solid rgba(255, 105, 180, 0.5);
+    padding: 35px 30px;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 90%;
+    color: #fff;
+    box-shadow: 0 0 45px rgba(255, 20, 147, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.custom-modal.active .letter-content {
+    transform: scale(1);
+}
+
+.letter-stamp {
+    display: inline-block;
+    background: rgba(255, 20, 147, 0.3);
+    border: 1px dashed #ff69b4;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #ffb6c1;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.letter-heading {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #ff99cc;
+    margin-bottom: 18px;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+}
+
+.letter-body p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #fce4ec;
+    margin-bottom: 14px;
+}
+
+.letter-celebrate-box {
+    margin: 18px 0;
+    text-align: center;
+}
+
+.celebrate-btn {
+    background: linear-gradient(135deg, #ff4081, #ff9900);
+    border: none;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease;
+}
+
+.celebrate-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 153, 0, 0.8);
+}
+
+.letter-footer {
+    margin-top: 15px;
+    text-align: right;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #ff69b4;
+}
+
+/* Modal 30 Razones */
+.reasons-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(40, 10, 35, 0.95) 0%, rgba(20, 5, 25, 0.98) 100%);
+    border: 1.5px solid rgba(255, 64, 129, 0.6);
+    padding: 35px 28px 30px;
+    border-radius: 24px;
+    max-width: 460px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 45px rgba(255, 64, 129, 0.45);
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.custom-modal.active .reasons-card {
+    transform: scale(1);
+}
+
+.reasons-badge {
+    display: inline-block;
+    background: rgba(255, 64, 129, 0.25);
+    border: 1px solid #ff4081;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #ffb6c1;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.reason-index {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #ff99cc;
+    margin-bottom: 14px;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+}
+
+.reason-text-container {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    margin-bottom: 22px;
+    border: 1px dashed rgba(255, 105, 180, 0.3);
+}
+
+.reason-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #fff;
+    font-weight: 400;
+    transition: opacity 0.25s ease;
+}
+
+.reasons-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.reason-nav-btn, .reason-btn-accent {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 105, 180, 0.5);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.reason-btn-accent {
+    background: linear-gradient(135deg, #ff4081, #e0006c);
+    border: none;
+    box-shadow: 0 0 15px rgba(255, 64, 129, 0.5);
+}
+
+.reason-nav-btn:hover, .reason-btn-accent:hover {
+    transform: scale(1.05);
+}
+
+.reasons-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.reasons-progress {
+    height: 100%;
+    width: 3.33%;
+    background: linear-gradient(90deg, #ff4081, #ff80bf);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* ============================================================
+   REPRODUCTOR DE MÚSICA FLOTANTE Y EQUALIZADOR
+   ============================================================ */
+.music-player {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(15, 5, 20, 0.75);
+    border: 1px solid rgba(255, 105, 180, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 18px 10px 12px;
+    border-radius: 50px;
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.35);
+    transition: all 0.3s ease;
+}
+
+.music-player:hover {
+    box-shadow: 0 0 35px rgba(255, 20, 147, 0.6);
+    border-color: rgba(255, 105, 180, 0.7);
+}
+
+.vinyl-wrapper {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #111;
+    border: 2px solid #ff4081;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 12px rgba(255, 64, 129, 0.6);
+}
+
+.vinyl-wrapper.spinning {
+    animation: rotateVinyl 4s linear infinite;
+}
+
+.vinyl-center {
+    font-size: 18px;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 190px;
+}
+
+.track-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Animación de barras de sonido */
+.sound-wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 12px;
+    margin-top: 4px;
+}
+
+.sound-wave span {
+    width: 3px;
+    height: 4px;
+    background: #ff4081;
+    border-radius: 2px;
+    transition: height 0.2s ease;
+}
+
+.sound-wave.playing span:nth-child(1) { animation: wave 0.8s infinite ease-in-out; }
+.sound-wave.playing span:nth-child(2) { animation: wave 0.8s infinite ease-in-out 0.2s; }
+.sound-wave.playing span:nth-child(3) { animation: wave 0.8s infinite ease-in-out 0.4s; }
+.sound-wave.playing span:nth-child(4) { animation: wave 0.8s infinite ease-in-out 0.1s; }
+.sound-wave.playing span:nth-child(5) { animation: wave 0.8s infinite ease-in-out 0.3s; }
+
+@keyframes wave {
+    0%, 100% { height: 3px; }
+    50% { height: 12px; }
+}
+
+.play-btn {
+    background: rgba(255, 64, 129, 0.3);
+    border: 1px solid rgba(255, 64, 129, 0.8);
+    color: #fff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 64, 129, 0.6);
+}
+
+/* ============================================================
+   CORAZONES FLOTANTES AL HACER CLIC
+   ============================================================ */
+.floating-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    font-size: 24px;
+    animation: floatUp 1.8s ease-out forwards;
+}
+
+/* ============================================================
+   ANIMACIONES KEYFRAMES
+   ============================================================ */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
+}
+
+@keyframes rotateVinyl {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.8);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translate(calc(var(--tx, 0px)), -60px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--tx, 0px) * 1.5), -140px) scale(1.5);
+    }
+}
+
+/* ============================================================
+   RESPONSIVIDAD (MÓVILES Y PANTALLAS PEQUEÑAS)
+   ============================================================ */
+@media (max-width: 650px) {
+    .anniversary-header {
+        top: 8px;
+    }
+
+    .anniversary-title {
+        font-size: 1.8rem;
+    }
+    
+    .anniversary-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .time-counter-badge {
+        padding: 4px 10px;
+        margin-top: 3px;
+    }
+
+    .unit span {
+        font-size: 0.9rem;
+    }
+
+    .unit small {
+        font-size: 0.5rem;
+    }
+
+    .action-buttons-group {
+        top: auto;
+        bottom: 80px;
+        right: 10px;
+        left: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .action-btn {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    .music-player {
+        bottom: 12px;
+        left: 10px;
+        right: 10px;
+        justify-content: space-between;
+        padding: 6px 12px;
+    }
+
+    .track-info {
+        max-width: 140px;
+    }
+
+    .love-img {
+        width: 55px;
+        height: 55px;
+        margin-left: -27px;
+        margin-top: -27px;
+    }
+
+    .galaxy-sun {
+        width: 85px;
+        height: 85px;
+        margin-left: -42px;
+        margin-top: -42px;
+    }
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz 1er Mes, Mi Amor ❤️ | Universe Love</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <!-- Pantalla de bienvenida interactiva -->
+  <div id="intro-screen" class="intro-screen">
+    <div class="intro-card">
+      <div class="intro-badge">✨ 1er Mes de Aniversario ✨</div>
+      <div class="heart-pulse">💖</div>
+      <h1 class="intro-title">Para el Amor de Mi Vida</h1>
+      
+      <div class="intro-message-box">
+        <p class="intro-quote">«Dicen que el universo es infinito, pero ni con todas sus estrellas podría medir lo que siento por ti...»</p>
+        <p class="intro-text">
+          Hoy celebramos nuestro <strong>primer mes juntos</strong>. Han sido 30 días mágicos llenos de sonrisas, miradas cómplices y la felicidad de saber que tengo a la persona más maravillosa a mi lado.
+        </p>
+        <p class="intro-subtext">
+          🎧 Ponte tus audífonos, sube el volumen y entra a este rincón que preparé con todo mi corazón solo para ti...
+        </p>
+      </div>
+
+      <button id="start-btn" class="start-btn">
+        <span>✨ Abrir mi regalo & Escuchar nuestra canción 🎵</span>
+      </button>
+
+      <div class="intro-author">Con todo mi amor, hoy y siempre ❤️</div>
+    </div>
+  </div>
+
+  <!-- Capas de Canvases Especiales -->
+  <canvas id="glowCanvas"></canvas>
+  <canvas id="canvas"></canvas>
+  <canvas id="constellationCanvas"></canvas>
+  <canvas id="petalsCanvas"></canvas>
+  <canvas id="fireworksCanvas"></canvas>
+  
+  <!-- Contenedor para estrellas fugaces interactivas -->
+  <div id="shooting-stars-container" class="shooting-stars-container"></div>
+  
+  <!-- Galaxia 3D de imágenes y anillos del sol -->
+  <div id="image-galaxy">
+    <div id="sun-audio-rings" class="sun-audio-rings">
+      <div class="audio-ring ring-1"></div>
+      <div class="audio-ring ring-2"></div>
+      <div class="audio-ring ring-3"></div>
+    </div>
+  </div>
+
+  <!-- Encabezado Romántico del 1er Mes y Contador en Vivo -->
+  <div class="anniversary-header" id="anniversary-header">
+    <div class="anniversary-tag">✨ Nuestro Primer Capítulo Juntos ✨</div>
+    <h1 class="anniversary-title">Feliz 1er Mes Juntos, Mi Amor ❤️</h1>
+    <p class="anniversary-subtitle">«En un universo lleno de estrellas, mis ojos siempre te elegirán a ti» 💫</p>
+    
+    <!-- Contador en Vivo -->
+    <div class="time-counter-badge" id="time-counter">
+      <div class="counter-label">❤️ Haciéndome la persona más feliz del mundo desde hace:</div>
+      <div class="counter-units">
+        <div class="unit"><span id="days">30</span><small>Días</small></div>
+        <div class="unit-separator">:</div>
+        <div class="unit"><span id="hours">00</span><small>Horas</small></div>
+        <div class="unit-separator">:</div>
+        <div class="unit"><span id="minutes">00</span><small>Min</small></div>
+        <div class="unit-separator">:</div>
+        <div class="unit"><span id="seconds">00</span><small>Seg</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de Acción Flotantes -->
+  <div class="action-buttons-group">
+    <button id="open-reasons-btn" class="action-btn reasons-btn" title="30 Razones por las que te amo">
+      💖 <span>30 Razones</span>
+    </button>
+    <button id="open-letter-btn" class="action-btn letter-btn" title="Leer nuestra carta">
+      💌 <span>Nuestra Carta</span>
+    </button>
+    <button id="toggle-constellation-btn" class="action-btn constellation-btn" title="Ver constelación de amor">
+      🌌 <span>Constelación</span>
+    </button>
+    <button id="toggle-petals-btn" class="action-btn petals-btn" title="Lluvia de rosas">
+      🌹 <span>Pétalos</span>
+    </button>
+    <button id="trigger-fireworks-btn" class="action-btn fireworks-btn" title="Fuegos artificiales de amor">
+      🎆 <span>Celebrar 🎉</span>
+    </button>
+  </div>
+
+  <!-- Modal: 30 Razones por las que te amo -->
+  <div id="reasons-modal" class="custom-modal">
+    <div class="modal-backdrop" id="reasons-backdrop"></div>
+    <div class="reasons-card">
+      <button id="close-reasons-btn" class="close-modal-btn">&times;</button>
+      <div class="reasons-badge">💖 30 Días, 30 Razones</div>
+      <h3 class="reason-index" id="reason-number">Razón #1</h3>
+      <div class="reason-text-container">
+        <p class="reason-text" id="reason-text">Por tu hermosa sonrisa que me alegra el día entero.</p>
+      </div>
+      <div class="reasons-actions">
+        <button id="prev-reason-btn" class="reason-nav-btn">⬅️ Anterior</button>
+        <button id="random-reason-btn" class="reason-btn-accent">🎲 Sorpréndeme</button>
+        <button id="next-reason-btn" class="reason-nav-btn">Siguiente ➡️</button>
+      </div>
+      <div class="reasons-progress-bar">
+        <div class="reasons-progress" id="reasons-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Carta de Amor -->
+  <div id="letter-modal" class="custom-modal">
+    <div class="modal-backdrop" id="letter-backdrop"></div>
+    <div class="letter-content">
+      <button id="close-letter-btn" class="close-modal-btn">&times;</button>
+      <div class="letter-stamp">1 Mes ❤️</div>
+      <h2 class="letter-heading">Para la persona más especial del mundo 💕</h2>
+      <div class="letter-body">
+        <p>Hoy cumplimos nuestro <strong>primer mes juntos</strong> y no imaginas lo feliz que me haces cada día.</p>
+        <p>Gracias por cada sonrisa, por cada momento y por iluminar mi mundo como las estrellas de este universo. Este mes es solo el comienzo de todas las cosas hermosas que viviremos juntos.</p>
+        <p>¡Te amo con todo mi corazón! ❤️✨</p>
+      </div>
+      <div class="letter-celebrate-box">
+        <button id="letter-celebrate-btn" class="celebrate-btn">
+          🎆 ¡Celebrar Nuestro 1er Mes! 🥂💖
+        </button>
+      </div>
+      <div class="letter-footer">
+        <span>Con todo mi amor para ti</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notificación flotante para estrellas fugaces y constelaciones -->
+  <div id="star-wish-popup" class="star-wish-popup">
+    <span class="star-wish-icon" id="star-wish-icon">🌠</span>
+    <span class="star-wish-text" id="star-wish-text">¡Pediste un deseo!</span>
+  </div>
+
+  <!-- Reproductor de Música Flotante con Visualizador Neón -->
+  <div class="music-player" id="music-player">
+    <div class="vinyl-wrapper" id="vinyl-disc">
+      <div class="vinyl-disc">
+        <div class="vinyl-center">🎵</div>
+      </div>
+    </div>
+    <div class="track-info">
+      <span class="track-title" id="track-title">Nuestra Canción Especial ❤️</span>
+      <div class="sound-wave" id="sound-wave">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <button id="play-pause-btn" class="play-btn" title="Pausar / Reproducir">
+      <span id="play-icon">⏸️</span>
+    </button>
+  </div>
+
+  <!-- Elemento de Audio -->
+  <audio id="bg-music" src="musica.mp3" preload="auto" loop></audio>
+
+  <script src="./script.js"></script>
+</body>
+</html>

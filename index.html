@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#050814">
+  <title>✨ ¡Felices 2 Meses, Tamy! ❤️ | Jose & Tamy | Nuestra Noche de Farolillos</title>
+  
+  <!-- Fuentes Románticas de Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Montserrat:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <!-- ============================================================
+       PANTALLA DE BIENVENIDA / ENTRADA MÁGICA
+       ============================================================ -->
+  <div id="intro-screen" class="intro-screen">
+    <div class="intro-card">
+      <div class="lantern-intro-icon">
+        <div class="lantern-flame"></div>
+        🏮
+      </div>
+      <div class="intro-badge">✨ 27 • Felices 2 Meses Juntos ✨</div>
+      <h1 class="intro-title">Para Tamy, la Dueña de Mi Corazón ❤️</h1>
+      
+      <div class="intro-message-box">
+        <p class="intro-quote">«Dicen que los farolillos flotantes llevan los deseos más puros directo al cielo... Y hoy, en nuestro segundo mes, cada una de estas luces lleva mi amor infinito por ti, mi Tamy.»</p>
+        <p class="intro-text">
+          Hoy celebramos <strong>2 meses juntos</strong> desde aquel hermoso 27 en que comenzó nuestra historia. Han sido días llenos de sonrisas, miradas que lo dicen todo, abrazos que sanan y la felicidad de saber que encontré a mi persona favorita en el universo.
+        </p>
+        <p class="intro-subtext">
+          🎧 <strong>Ponte tus audífonos</strong>, sube el volumen y entra a este rincón bajo las estrellas que preparé con todo mi corazón solo para ti...
+        </p>
+      </div>
+
+      <button id="start-btn" class="start-btn">
+        <span class="btn-shine"></span>
+        <span>🏮 Encender los Farolillos & Celebrar Nuestros 2 Meses 🎵</span>
+      </button>
+
+      <div class="intro-author">Hecho por Jose con todo mi amor para Tamy, hoy y siempre ❤️</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CANVASES DE FONDO Y AMBIENTE
+       ============================================================ -->
+  <!-- Cielo nocturno, estrellas titilantes, luna y aurora boreal -->
+  <canvas id="auroraSkyCanvas"></canvas>
+  
+  <!-- Lago mágico con reflejos de farolillos y ondas de agua interactivas -->
+  <canvas id="waterCanvas"></canvas>
+  
+  <!-- Lluvia de luciérnagas doradas y chispas de luz -->
+  <canvas id="firefliesCanvas"></canvas>
+  
+  <!-- Chispas interactivas al hacer clic / fuegos de estrellas -->
+  <canvas id="sparkleCanvas"></canvas>
+
+  <!-- ============================================================
+       CONTENEDOR 3D DE FAROLILLOS FLOTANTES
+       ============================================================ -->
+  <div id="lanterns-viewport" class="lanterns-viewport">
+    <div id="lanterns-container" class="lanterns-container"></div>
+  </div>
+
+  <!-- Barquito de papel iluminado en el lago con mensaje secreto -->
+  <div id="origami-boat" class="origami-boat" title="Haz clic para abrir el barquito de nuestros 2 meses ⛵">
+    <div class="boat-glow"></div>
+    <div class="boat-sail">⛵</div>
+    <div class="boat-candle">🕯️</div>
+    <div class="boat-label">Mensaje de Amor 💌</div>
+  </div>
+
+  <!-- Luna romántica -->
+  <div class="glowing-moon" id="glowing-moon">
+    <div class="moon-halo"></div>
+    <div class="moon-body"></div>
+  </div>
+
+  <!-- ============================================================
+       ENCABEZADO ROMÁNTICO & CONTADOR EN VIVO
+       ============================================================ -->
+  <header class="romantic-header" id="romantic-header">
+    <div class="romantic-tag">🏮 ¡Felices 2 Meses, Tamy! 🏮</div>
+    <h1 class="romantic-title">Nuestra Noche de los Deseos ✨</h1>
+    <p class="romantic-subtitle">«Jose & Tamy • 2 meses haciéndome el hombre más feliz del mundo» ❤️</p>
+    
+    <!-- Contador de Amor en Vivo -->
+    <div class="love-counter-badge" id="time-counter">
+      <div class="counter-label">✨ Desde nuestro hermoso día 27, amándote cada segundo:</div>
+      <div class="counter-units">
+        <div class="unit"><span id="days">00</span><small>Días</small></div>
+        <div class="unit-separator">:</div>
+        <div class="unit"><span id="hours">00</span><small>Horas</small></div>
+        <div class="unit-separator">:</div>
+        <div class="unit"><span id="minutes">00</span><small>Min</small></div>
+        <div class="unit-separator">:</div>
+        <div class="unit"><span id="seconds">00</span><small>Seg</small></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       BARRA DE ACCIONES FLOTANTES (INTERACCIONES)
+       ============================================================ -->
+  <nav class="actions-dock" aria-label="Controles del regalo">
+    <button id="open-wish-maker-btn" class="dock-btn wish-btn" title="Lanzar un farolillo con tu propio deseo">
+      <span class="dock-icon">🏮</span>
+      <span class="dock-text">Pedir Deseo</span>
+    </button>
+    <button id="trigger-festival-btn" class="dock-btn festival-btn" title="Lanzar lluvia masiva de farolillos al cielo">
+      <span class="dock-icon">✨</span>
+      <span class="dock-text">Festival Rapunzel</span>
+    </button>
+    <button id="open-letter-btn" class="dock-btn letter-btn" title="Leer nuestra carta por los 2 meses">
+      <span class="dock-icon">💌</span>
+      <span class="dock-text">Carta 2 Meses</span>
+    </button>
+    <button id="open-reasons-btn" class="dock-btn reasons-btn" title="60 razones por las que te amo">
+      <span class="dock-icon">💖</span>
+      <span class="dock-text">60 Razones</span>
+    </button>
+    <button id="toggle-fireflies-btn" class="dock-btn fireflies-btn active" title="Activar/Desactivar luciérnagas mágicas">
+      <span class="dock-icon">🌟</span>
+      <span class="dock-text">Luciérnagas</span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       MODAL 1: LANZAR UN FAROLILLO CON DESEO PERSONALIZADO
+       ============================================================ -->
+  <div id="wish-modal" class="custom-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="wish-backdrop"></div>
+    <div class="modal-card wish-card">
+      <button id="close-wish-btn" class="close-modal-btn" aria-label="Cerrar">&times;</button>
+      
+      <div class="card-badge">🏮 Pide un Deseo por Nuestros 2 Meses</div>
+      <h2 class="modal-heading">Lanza tu Propio Farolillo al Cielo 💫</h2>
+      <p class="modal-desc">Escribe lo que tu corazón desee para nosotros o elige uno especial. Tu farolillo se encenderá y subirá flotando entre las estrellas.</p>
+      
+      <div class="lantern-color-picker">
+        <label>Elige el color de la luz:</label>
+        <div class="color-options">
+          <button type="button" class="color-dot active" data-color="gold" style="--c: #ffd166;" title="Dorado Cálido"></button>
+          <button type="button" class="color-dot" data-color="rose" style="--c: #ff758f;" title="Rosa Pasión"></button>
+          <button type="button" class="color-dot" data-color="violet" style="--c: #c77dff;" title="Violeta Mágico"></button>
+          <button type="button" class="color-dot" data-color="cyan" style="--c: #4cc9f0;" title="Cian Aurora"></button>
+        </div>
+      </div>
+
+      <div class="wish-input-wrapper">
+        <textarea id="custom-wish-input" maxlength="120" placeholder="Escribe aquí tu deseo o un lindo mensaje para nuestros 2 meses... ✨"></textarea>
+      </div>
+
+      <div class="quick-wishes">
+        <span class="quick-label">O elige un deseo rápido:</span>
+        <div class="quick-tags">
+          <button type="button" class="wish-tag">Estar siempre a tu lado y amarte más cada día ❤️</button>
+          <button type="button" class="wish-tag">Que este sea el 2do de mil meses felices 💕</button>
+          <button type="button" class="wish-tag">Viajar por todo el mundo tomados de la mano ✈️</button>
+          <button type="button" class="wish-tag">Hacerte la mujer más feliz del universo 👑</button>
+          <button type="button" class="wish-tag">Que nuestras risas y complicidad nunca falten ✨</button>
+        </div>
+      </div>
+
+      <button id="release-wish-lantern-btn" class="primary-action-btn">
+        <span>🏮 Encender & Soltar al Cielo ✨</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL 2: INSPECCIONAR RECUERDO / FOTO DEL FAROLILLO
+       ============================================================ -->
+  <div id="photo-modal" class="custom-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="photo-backdrop"></div>
+    <div class="modal-card photo-card">
+      <button id="close-photo-btn" class="close-modal-btn" aria-label="Cerrar">&times;</button>
+      
+      <div class="photo-frame-polaroid">
+        <div class="polaroid-image-container">
+          <img id="modal-photo-img" src="" alt="Recuerdo Especial">
+          <div class="polaroid-glow"></div>
+        </div>
+        <div class="polaroid-caption-box">
+          <h3 id="modal-photo-title" class="polaroid-title">Un Momento Inolvidable ❤️</h3>
+          <p id="modal-photo-desc" class="polaroid-text">Cada instante de estos 2 meses contigo es mi recuerdo favorito.</p>
+        </div>
+      </div>
+
+      <div class="photo-modal-actions">
+        <button id="send-kiss-btn" class="send-kiss-btn">
+          <span>💖 Enviar un Beso & Corazones</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL 3: CARTA DE AMOR EN PERGAMINO ILUMINADO
+       ============================================================ -->
+  <div id="letter-modal" class="custom-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="letter-backdrop"></div>
+    <div class="modal-card letter-card parchment-paper">
+      <button id="close-letter-btn" class="close-modal-btn" aria-label="Cerrar">&times;</button>
+      
+      <div class="wax-seal">❤️</div>
+      <div class="letter-tag">De Jose para Tamy 📜✨</div>
+      
+      <h2 class="letter-title">Mi Tamy Hermosa... 💕</h2>
+      
+      <div class="letter-scroll-body">
+        <p class="letter-p">
+          Hoy cumplimos <strong>2 meses juntos</strong> desde aquel día 27 tan especial en el que comenzó nuestra historia. Aunque para el mundo dos meses puedan parecer poco, para mí han sido suficientes para entender que llegaste a iluminar mi vida de la forma más mágica posible.
+        </p>
+        <p class="letter-p">
+          Gracias por cada sonrisa que me regalas, por tus mensajes que me alegran el día y por la paz tan bonita que siento cada vez que te abrazo. A tu lado descubrí lo hermoso que es querer con el corazón entero, compartir risas y saber que estoy con la persona correcta.
+        </p>
+        <p class="letter-p">
+          Esta noche encendí cada farolillo en este cielo pensando en ti, en nosotros y en nuestro futuro. Deseo que este amor siga creciendo más allá de las estrellas, que nunca nos falte la complicidad y que sigamos caminando juntos, celebrando cada 27 de nuestras vidas tomados de la mano.
+        </p>
+        <p class="letter-p letter-highlight">
+          Gracias por ser mi presente favorito y el futuro que siempre soñé. ¡Felices 2 meses, mi Tamy! Te amo con toda mi alma, hoy, mañana y siempre. ❤️
+        </p>
+      </div>
+
+      <div class="letter-footer">
+        <button id="letter-celebrate-btn" class="celebrate-btn">
+          ✨ ¡Llenar el Cielo de Farolillos por Nuestro Amor, Tamy! 🏮🎆
+        </button>
+        <div class="letter-signature">
+          <span>Eternamente tuyo,</span>
+          <strong>Jose ❤️ Con todo mi amor por nuestros 2 meses 💕</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL 4: COSAS QUE AMO DE TI / MOTIVOS
+       ============================================================ -->
+  <div id="reasons-modal" class="custom-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="reasons-backdrop"></div>
+    <div class="modal-card reasons-card">
+      <button id="close-reasons-btn" class="close-modal-btn" aria-label="Cerrar">&times;</button>
+      
+      <div class="card-badge">💖 60 Motivos Para Amarte, Tamy</div>
+      <h3 class="reason-number" id="reason-number">Razón #1 de 60</h3>
+      <div class="reasons-anniversary-subtitle" style="font-size: 0.85rem; color: #ffd166; margin-top: -6px; margin-bottom: 12px; font-weight: 500;">✨ Una razón por cada día de nuestros 2 meses juntos (Jose & Tamy) 💕</div>
+      
+      <div class="reason-box">
+        <div class="quote-mark-left">“</div>
+        <p class="reason-content" id="reason-text">Por tu sonrisa radiante que ilumina hasta el día más nublado.</p>
+        <div class="quote-mark-right">”</div>
+      </div>
+
+      <div class="reasons-navigation">
+        <button id="prev-reason-btn" class="reason-nav-btn">⬅️ Anterior</button>
+        <button id="random-reason-btn" class="reason-random-btn">🎲 Sorpréndeme</button>
+        <button id="next-reason-btn" class="reason-nav-btn">Siguiente ➡️</button>
+      </div>
+
+      <div class="reasons-progress-container">
+        <div class="reasons-progress-bar" id="reasons-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NOTIFICACIÓN FLOTANTE DE DESEOS & TOAST
+       ============================================================ -->
+  <div id="floating-toast" class="floating-toast" role="status" aria-live="polite">
+    <span class="toast-icon" id="toast-icon">🏮</span>
+    <span class="toast-text" id="toast-text">¡Tu deseo fue elevado a las estrellas!</span>
+  </div>
+
+  <!-- ============================================================
+       REPRODUCTOR DE MÚSICA ROMÁNTICA FLOTANTE
+       ============================================================ -->
+  <div class="romantic-music-player" id="music-player">
+    <div class="player-glow"></div>
+    <div class="lantern-disc-wrap" id="music-disc-wrap">
+      <div class="lantern-disc">🏮</div>
+    </div>
+    <div class="track-details">
+      <span class="track-name" id="track-name">Nuestra Canción Especial ❤️</span>
+      <div class="audio-waves" id="audio-waves">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <button id="play-pause-btn" class="player-toggle-btn" title="Pausar / Reproducir">
+      <span id="play-icon">⏸️</span>
+    </button>
+  </div>
+
+  <!-- Elemento de Audio -->
+  <audio id="bg-music" src="musica.mp3" preload="auto" loop></audio>
+
+  <!-- Script Principal -->
+  <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1793 @@
+/* ============================================================
+   ESTILOS PRINCIPALES: NOCHE DE FAROLILLOS & LAGO DE LOS DESEOS 🏮
+   ============================================================ */
+
+:root {
+  --primary-gold: #ffd166;
+  --warm-amber: #ff9e00;
+  --lantern-glow: rgba(255, 179, 71, 0.6);
+  --deep-night: #050814;
+  --lake-dark: #02050f;
+  --accent-rose: #ff4d6d;
+  --accent-pink: #ff758f;
+  --aurora-cyan: #4cc9f0;
+  --aurora-purple: #7209b7;
+  --glass-bg: rgba(15, 20, 42, 0.72);
+  --glass-border: rgba(255, 215, 102, 0.35);
+  --font-script: 'Dancing Script', cursive;
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Montserrat', sans-serif;
+  --font-round: 'Quicksand', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--deep-night);
+  font-family: var(--font-sans);
+  color: #fff;
+  position: relative;
+}
+
+/* ============================================================
+   CANVASES DE FONDO Y EFECTOS
+   ============================================================ */
+#auroraSkyCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+#waterCanvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 38vh;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#firefliesCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 6;
+  pointer-events: none;
+}
+
+#sparkleCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 25;
+  pointer-events: none;
+}
+
+/* ============================================================
+   LUNA BRILLANTE Y HALO ROMÁNTICO
+   ============================================================ */
+.glowing-moon {
+  position: absolute;
+  top: 6vh;
+  right: 10vw;
+  width: 80px;
+  height: 80px;
+  z-index: 5;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.glowing-moon:hover {
+  transform: scale(1.08);
+}
+
+.moon-body {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffdf0 0%, #fae69e 60%, #e2b34e 100%);
+  box-shadow: 0 0 40px rgba(255, 235, 150, 0.85),
+              0 0 90px rgba(255, 210, 100, 0.45),
+              inset -6px -6px 12px rgba(200, 140, 40, 0.3);
+  animation: moonPulse 6s ease-in-out infinite alternate;
+}
+
+.moon-halo {
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 220, 120, 0.25) 0%, rgba(255, 220, 120, 0) 70%);
+  pointer-events: none;
+  animation: haloBreathe 8s ease-in-out infinite alternate;
+}
+
+@keyframes moonPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.04); filter: brightness(1.15); }
+}
+
+@keyframes haloBreathe {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ============================================================
+   PANTALLA DE BIENVENIDA (INTRO SCREEN)
+   ============================================================ */
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 40%, rgba(18, 12, 36, 0.96) 0%, rgba(4, 5, 14, 0.98) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 18px;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
+}
+
+.intro-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 180, 50, 0.06) 100%);
+  border: 1.5px solid var(--glass-border);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 40px 32px 35px;
+  border-radius: 30px;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 0 60px rgba(255, 160, 20, 0.25), 
+              0 20px 40px rgba(0, 0, 0, 0.6),
+              inset 0 0 25px rgba(255, 215, 102, 0.1);
+  animation: introPopIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.lantern-intro-icon {
+  font-size: 3.5rem;
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+  animation: gentleFloat 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 170, 0, 0.8));
+}
+
+.lantern-flame {
+  position: absolute;
+  top: 42%;
+  left: 44%;
+  width: 12px;
+  height: 16px;
+  background: radial-gradient(circle, #fff 10%, #ffd166 60%, #ff4d00 100%);
+  border-radius: 50% 50% 30% 30%;
+  filter: blur(1.5px);
+  animation: flameFlicker 0.4s infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0% { transform: scale(1) translateY(0); opacity: 0.85; }
+  100% { transform: scale(1.2) translateY(-2px); opacity: 1; }
+}
+
+.intro-badge {
+  display: inline-block;
+  background: rgba(255, 209, 102, 0.15);
+  border: 1px solid rgba(255, 209, 102, 0.6);
+  color: var(--primary-gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 16px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+}
+
+.intro-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ffffff 30%, #ffd166 80%, #ff9e00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.25;
+}
+
+.intro-message-box {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 18px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.intro-quote {
+  font-family: var(--font-script);
+  font-size: 1.45rem;
+  color: #ffe8a3;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  text-shadow: 0 0 12px rgba(255, 209, 102, 0.4);
+}
+
+.intro-text {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.intro-subtext {
+  font-size: 0.88rem;
+  color: #cbd5e1;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #ff9e00 0%, #e63946 50%, #d90429 100%);
+  border: none;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 16px 28px;
+  border-radius: 35px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(230, 57, 70, 0.5), 0 0 20px rgba(255, 158, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.start-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(230, 57, 70, 0.7), 0 0 30px rgba(255, 158, 0, 0.6);
+}
+
+.start-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.intro-author {
+  font-family: var(--font-script);
+  font-size: 1.25rem;
+  color: #ffd166;
+  margin-top: 18px;
+  opacity: 0.9;
+}
+
+@keyframes introPopIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ============================================================
+   ENCABEZADO ROMÁNTICO Y CONTADOR DE AMOR
+   ============================================================ */
+.romantic-header {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  width: 92%;
+  max-width: 720px;
+  pointer-events: none;
+  animation: fadeInDown 1.4s ease-out;
+}
+
+.romantic-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.4);
+  padding: 3px 14px;
+  border-radius: 20px;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
+}
+
+.romantic-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #ffeaa7 50%, #ffd166 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 25px rgba(255, 209, 102, 0.4);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.romantic-subtitle {
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: #ffeedb;
+  text-shadow: 0 0 12px rgba(255, 158, 0, 0.6);
+  margin-bottom: 10px;
+}
+
+.love-counter-badge {
+  display: inline-block;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 8px 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 209, 102, 0.2);
+  pointer-events: auto;
+}
+
+.counter-label {
+  font-size: 0.76rem;
+  color: #ffd166;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.counter-units {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.counter-units .unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.counter-units .unit span {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.counter-units .unit small {
+  font-size: 0.62rem;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.unit-separator {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-gold);
+  margin-top: -6px;
+  animation: blinkColon 1.2s infinite alternate;
+}
+
+@keyframes blinkColon {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translate(-50%, -20px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ============================================================
+   CONTENEDOR 3D DE FAROLILLOS FLOTANTES
+   ============================================================ */
+.lanterns-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1200px;
+}
+
+.lanterns-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* Farolillo Base */
+.floating-lantern {
+  position: absolute;
+  cursor: pointer;
+  pointer-events: auto;
+  transform-origin: 50% 100%;
+  transition: filter 0.3s ease;
+  will-change: transform, opacity;
+  touch-action: manipulation;
+}
+
+/* Área táctil ampliada para móviles y pantallas táctiles */
+.floating-lantern::after {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+}
+
+.floating-lantern:hover {
+  filter: brightness(1.25) drop-shadow(0 0 25px rgba(255, 209, 102, 0.9));
+}
+
+/* Cuerpo del Farolillo Clásico */
+.lantern-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lantern-dome {
+  width: 70px;
+  height: 90px;
+  background: radial-gradient(ellipse at 50% 65%, #fff 5%, #ffd166 35%, #ff9e00 65%, #d9381e 95%);
+  border-radius: 35px 35px 25px 25px / 45px 45px 30px 30px;
+  box-shadow: 0 0 35px rgba(255, 170, 0, 0.7),
+              0 0 70px rgba(255, 120, 0, 0.4),
+              inset 0 0 15px rgba(255, 255, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 220, 120, 0.5);
+  animation: lanternSway 4s ease-in-out infinite alternate;
+}
+
+.lantern-dome.color-rose {
+  background: radial-gradient(ellipse at 50% 65%, #fff 5%, #ff758f 35%, #e6194b 65%, #800f2f 95%);
+  box-shadow: 0 0 35px rgba(255, 80, 120, 0.7), 0 0 70px rgba(255, 40, 80, 0.4);
+  border-color: rgba(255, 180, 200, 0.6);
+}
+
+.lantern-dome.color-violet {
+  background: radial-gradient(ellipse at 50% 65%, #fff 5%, #c77dff 35%, #7b2cbf 65%, #3c096c 95%);
+  box-shadow: 0 0 35px rgba(180, 80, 255, 0.7), 0 0 70px rgba(140, 40, 220, 0.4);
+  border-color: rgba(220, 180, 255, 0.6);
+}
+
+.lantern-dome.color-cyan {
+  background: radial-gradient(ellipse at 50% 65%, #fff 5%, #4cc9f0 35%, #4361ee 65%, #3a0ca3 95%);
+  box-shadow: 0 0 35px rgba(80, 200, 255, 0.7), 0 0 70px rgba(60, 140, 255, 0.4);
+  border-color: rgba(180, 240, 255, 0.6);
+}
+
+.lantern-ribs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 15px,
+    rgba(140, 40, 0, 0.15) 15px,
+    rgba(140, 40, 0, 0.15) 17px
+  );
+  pointer-events: none;
+}
+
+.lantern-inner-candle {
+  position: absolute;
+  bottom: 16px;
+  left: calc(50% - 6px);
+  width: 12px;
+  height: 18px;
+  background: radial-gradient(circle, #ffffff 10%, #ffe8a3 60%, #ff6b00 100%);
+  border-radius: 50% 50% 20% 20%;
+  filter: blur(1px);
+  animation: flameFlicker 0.3s infinite alternate;
+}
+
+.lantern-tassel {
+  width: 3px;
+  height: 25px;
+  background: linear-gradient(to bottom, #d9381e, #ffd166);
+  position: relative;
+}
+
+.lantern-tassel::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -3px;
+  width: 9px;
+  height: 9px;
+  background: #ffd166;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 209, 102, 0.8);
+}
+
+/* Farolillo con Foto (Polaroid Lantern) */
+.photo-lantern-card {
+  background: #fff;
+  padding: 6px 6px 16px 6px;
+  border-radius: 8px;
+  box-shadow: 0 0 35px rgba(255, 200, 80, 0.7),
+              0 10px 25px rgba(0, 0, 0, 0.6);
+  border: 1.5px solid rgba(255, 230, 150, 0.9);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: rotate(-3deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.photo-lantern-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 70%, rgba(255, 200, 50, 0.25) 0%, transparent 80%);
+  pointer-events: none;
+}
+
+.photo-lantern-card img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.photo-lantern-heart {
+  position: absolute;
+  bottom: 2px;
+  right: 6px;
+  font-size: 0.75rem;
+}
+
+.photo-lantern-hang {
+  width: 2px;
+  height: 16px;
+  background: rgba(255, 215, 102, 0.8);
+  margin: 0 auto;
+}
+
+@keyframes lanternSway {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ============================================================
+   BARQUITO DE PAPEL ILUMINADO EN EL LAGO
+   ============================================================ */
+.origami-boat {
+  position: absolute;
+  bottom: 12vh;
+  left: 12vw;
+  z-index: 8;
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: boatRock 4s ease-in-out infinite alternate;
+}
+
+.origami-boat:hover {
+  transform: scale(1.2) translateY(-6px);
+}
+
+.boat-sail {
+  font-size: 2.6rem;
+  filter: drop-shadow(0 0 15px rgba(255, 200, 80, 0.9));
+  line-height: 1;
+}
+
+.boat-candle {
+  font-size: 1.1rem;
+  margin-top: -12px;
+  animation: flameFlicker 0.4s infinite alternate;
+  filter: drop-shadow(0 0 10px #ffd166);
+}
+
+.boat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid var(--primary-gold);
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin-top: 4px;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(255, 209, 102, 0.4);
+}
+
+@keyframes boatRock {
+  0% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(-4px); }
+  100% { transform: rotate(5deg) translateY(0); }
+}
+
+/* ============================================================
+   BARRA DE ACCIONES FLOTANTES (DOCK INFERIOR)
+   ============================================================ */
+.actions-dock {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 8px 14px;
+  border-radius: 35px;
+  z-index: 20;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 209, 102, 0.25);
+  max-width: 94vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.actions-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  white-space: nowrap;
+}
+
+.dock-btn:hover {
+  background: rgba(255, 209, 102, 0.2);
+  border-color: var(--primary-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 209, 102, 0.3);
+}
+
+.dock-btn:active {
+  transform: translateY(0);
+}
+
+.dock-btn.festival-btn {
+  background: linear-gradient(135deg, rgba(255, 158, 0, 0.35) 0%, rgba(230, 57, 70, 0.35) 100%);
+  border-color: rgba(255, 209, 102, 0.7);
+  box-shadow: 0 0 15px rgba(255, 158, 0, 0.3);
+}
+
+.dock-btn.active {
+  background: rgba(255, 209, 102, 0.25);
+  border-color: var(--primary-gold);
+}
+
+.dock-icon {
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   REPRODUCTOR DE MÚSICA ROMÁNTICA
+   ============================================================ */
+.romantic-music-player {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 6px 14px 6px 10px;
+  border-radius: 30px;
+  z-index: 20;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 209, 102, 0.2);
+}
+
+.lantern-disc-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff9e00 0%, #d90429 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 0 12px rgba(255, 158, 0, 0.6);
+  transition: transform 0.4s ease;
+}
+
+.lantern-disc-wrap.spinning {
+  animation: spinSlow 6s linear infinite;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.track-details {
+  display: flex;
+  flex-direction: column;
+  max-width: 140px;
+}
+
+.track-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffd166;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.audio-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 10px;
+  margin-top: 2px;
+}
+
+.audio-waves span {
+  width: 2.5px;
+  height: 3px;
+  background: #ff758f;
+  border-radius: 2px;
+  transition: height 0.2s ease;
+}
+
+.audio-waves.playing span:nth-child(1) { animation: waveBar 0.8s infinite alternate 0.1s; }
+.audio-waves.playing span:nth-child(2) { animation: waveBar 0.8s infinite alternate 0.3s; }
+.audio-waves.playing span:nth-child(3) { animation: waveBar 0.8s infinite alternate 0.5s; }
+.audio-waves.playing span:nth-child(4) { animation: waveBar 0.8s infinite alternate 0.2s; }
+.audio-waves.playing span:nth-child(5) { animation: waveBar 0.8s infinite alternate 0.4s; }
+
+@keyframes waveBar {
+  0% { height: 3px; background: #ffd166; }
+  100% { height: 10px; background: #ff4d6d; }
+}
+
+.player-toggle-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.player-toggle-btn:hover {
+  background: rgba(255, 209, 102, 0.3);
+  transform: scale(1.1);
+}
+
+/* ============================================================
+   MODALES (ESTILO VIDRIO / PERGAMINO ROMÁNTICO)
+   ============================================================ */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.custom-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 4, 12, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(22, 28, 56, 0.94) 0%, rgba(10, 14, 32, 0.96) 100%);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 209, 102, 0.25);
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+}
+
+.custom-modal.active .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  background: rgba(255, 77, 109, 0.6);
+  border-color: #ff4d6d;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.card-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary-gold);
+  background: rgba(255, 209, 102, 0.15);
+  border: 1px solid rgba(255, 209, 102, 0.5);
+  padding: 4px 12px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+}
+
+.modal-heading {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.modal-desc {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Modal 1: Lanzador de Deseo */
+.lantern-color-picker {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.lantern-color-picker label {
+  display: block;
+  font-size: 0.85rem;
+  color: #ffd166;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.color-options {
+  display: flex;
+  gap: 12px;
+}
+
+.color-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.color-dot.active {
+  border-color: #ffffff;
+  transform: scale(1.2);
+  box-shadow: 0 0 15px var(--c);
+}
+
+.wish-input-wrapper textarea {
+  width: 100%;
+  height: 85px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.wish-input-wrapper textarea:focus {
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 12px rgba(255, 209, 102, 0.3);
+}
+
+.quick-wishes {
+  margin-top: 14px;
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.quick-label {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.quick-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.wish-tag {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  font-size: 0.76rem;
+  padding: 5px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wish-tag:hover {
+  background: rgba(255, 209, 102, 0.2);
+  border-color: var(--primary-gold);
+  color: #fff;
+}
+
+.primary-action-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff9e00 0%, #e63946 100%);
+  border: none;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.98rem;
+  padding: 14px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(230, 57, 70, 0.7);
+}
+
+/* Modal 2: Foto Polaroid Zoom */
+.photo-card {
+  max-width: 440px;
+  text-align: center;
+  padding: 24px;
+}
+
+.photo-frame-polaroid {
+  background: #ffffff;
+  padding: 12px 12px 20px 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 209, 102, 0.4);
+  margin-bottom: 18px;
+}
+
+.polaroid-image-container {
+  width: 100%;
+  height: 280px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  background: #111;
+}
+
+.polaroid-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-caption-box {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.polaroid-title {
+  font-family: var(--font-script);
+  font-size: 1.7rem;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.polaroid-text {
+  font-family: var(--font-round);
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.send-kiss-btn {
+  background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+  border: none;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5);
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.send-kiss-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(255, 77, 109, 0.7);
+}
+
+/* Modal 3: Carta de Amor Pergamino */
+.letter-card.parchment-paper {
+  background: linear-gradient(135deg, #fff9e6 0%, #f7e6b5 100%);
+  color: #2b1e16;
+  border: 2px solid #dfc382;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7), inset 0 0 35px rgba(180, 130, 40, 0.15);
+  position: relative;
+}
+
+.letter-card.parchment-paper .close-modal-btn {
+  background: rgba(0, 0, 0, 0.1);
+  color: #2b1e16;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.wax-seal {
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle, #d90429 0%, #780000 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(120, 0, 0, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.4);
+  margin: 0 auto 10px;
+}
+
+.letter-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #8c531b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.letter-title {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  color: #5c2c0e;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.letter-scroll-body {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #3b2314;
+  margin-bottom: 22px;
+}
+
+.letter-p {
+  margin-bottom: 12px;
+}
+
+.letter-highlight {
+  font-family: var(--font-script);
+  font-size: 1.55rem;
+  color: #b91c1c;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.celebrate-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #d90429 0%, #b5179e 100%);
+  border: none;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 13px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(217, 4, 41, 0.4);
+  margin-bottom: 14px;
+  transition: transform 0.2s ease;
+}
+
+.celebrate-btn:hover {
+  transform: translateY(-2px);
+}
+
+.letter-signature {
+  text-align: right;
+  font-family: var(--font-script);
+  font-size: 1.35rem;
+  color: #5c2c0e;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modal 4: Razones / Motivos */
+.reasons-card {
+  text-align: center;
+}
+
+.reason-number {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--primary-gold);
+  margin-bottom: 16px;
+}
+
+.reason-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: 20px;
+  padding: 24px 20px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.quote-mark-left, .quote-mark-right {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: rgba(255, 209, 102, 0.25);
+  position: absolute;
+  line-height: 1;
+}
+
+.quote-mark-left { top: 8px; left: 12px; }
+.quote-mark-right { bottom: -10px; right: 12px; }
+
+.reason-content {
+  font-family: var(--font-script);
+  font-size: 1.6rem;
+  color: #fffdf0;
+  line-height: 1.4;
+  transition: opacity 0.25s ease;
+}
+
+.reasons-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.reason-nav-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reason-nav-btn:hover {
+  background: rgba(255, 209, 102, 0.2);
+  border-color: var(--primary-gold);
+}
+
+.reason-random-btn {
+  background: linear-gradient(135deg, #ff9e00 0%, #ff4d6d 100%);
+  border: none;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 77, 109, 0.4);
+}
+
+.reasons-progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.reasons-progress-bar {
+  height: 100%;
+  width: 5%;
+  background: linear-gradient(90deg, #ffd166, #ff4d6d);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* ============================================================
+   TOAST FLOTANTE DE NOTIFICACIONES
+   ============================================================ */
+.floating-toast {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: rgba(18, 22, 45, 0.92);
+  border: 1.5px solid var(--primary-gold);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 209, 102, 0.4);
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast-icon {
+  font-size: 1.2rem;
+}
+
+/* ============================================================
+   CORAZONES Y CHISPAS AL HACER CLIC
+   ============================================================ */
+.floating-click-heart {
+  position: fixed;
+  font-size: 1.5rem;
+  pointer-events: none;
+  z-index: 999;
+  animation: floatHeartClick 1.8s forwards ease-out;
+}
+
+@keyframes floatHeartClick {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(var(--tx), -50px) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx) * 1.5), -120px) scale(0.9);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (MÓVILES Y TABLETS)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Lago adaptado: más espacio de cielo para los farolillos */
+  #waterCanvas {
+    height: 26vh;
+  }
+
+  /* Encabezado compacto y elegante: nunca tapa los farolillos */
+  .romantic-header {
+    top: 62px;
+    width: 94%;
+    max-width: 480px;
+  }
+
+  .romantic-tag {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    margin-bottom: 3px;
+  }
+
+  .romantic-title {
+    font-size: 1.3rem;
+    margin-bottom: 2px;
+  }
+
+  .romantic-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    padding: 0 8px;
+  }
+
+  .love-counter-badge {
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .counter-label {
+    font-size: 0.68rem;
+    margin-bottom: 3px;
+  }
+
+  .counter-units {
+    gap: 6px;
+  }
+
+  .counter-units .unit span {
+    font-size: 0.98rem;
+  }
+
+  .counter-units .unit small {
+    font-size: 0.55rem;
+  }
+
+  .unit-separator {
+    font-size: 0.9rem;
+    margin-top: -4px;
+  }
+
+  /* Luna y reproductor en esquinas superiores */
+  .glowing-moon {
+    top: 12px;
+    right: 12px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .romantic-music-player {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    padding: 4px 8px 4px 6px;
+    gap: 7px;
+  }
+
+  .lantern-disc-wrap {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  .track-details {
+    max-width: 90px;
+  }
+
+  .track-name {
+    font-size: 0.68rem;
+  }
+
+  .audio-waves {
+    height: 8px;
+  }
+
+  /* Farolillos y fotos en celulares: tamaño claro, nítido y destacable */
+  .photo-lantern-card {
+    padding: 6px 6px 16px 6px;
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(255, 200, 80, 0.8), 0 8px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .photo-lantern-card img {
+    width: 88px;
+    height: 88px;
+  }
+
+  .photo-lantern-heart {
+    font-size: 0.85rem;
+    bottom: 2px;
+    right: 5px;
+  }
+
+  .lantern-dome {
+    width: 66px;
+    height: 84px;
+  }
+
+  /* Barquito de papel en el lago */
+  .origami-boat {
+    bottom: calc(env(safe-area-inset-bottom, 10px) + 72px);
+    left: 12px;
+    z-index: 15;
+  }
+
+  .boat-sail {
+    font-size: 2.2rem;
+  }
+
+  .boat-label {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+  }
+
+  /* Barra de acciones inferior estilo App Móvil Moderna */
+  .actions-dock {
+    bottom: calc(env(safe-area-inset-bottom, 10px) + 8px);
+    width: calc(100% - 16px);
+    max-width: 440px;
+    padding: 6px 4px;
+    gap: 2px;
+    justify-content: space-around;
+    border-radius: 24px;
+    background: rgba(10, 14, 32, 0.9);
+    border: 1.5px solid rgba(255, 209, 102, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 18px rgba(255, 209, 102, 0.25);
+  }
+
+  .dock-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 2px;
+    gap: 3px;
+    border-radius: 14px;
+    background: transparent;
+    border: 1px solid transparent;
+    min-width: 0;
+  }
+
+  .dock-btn.festival-btn {
+    background: linear-gradient(135deg, rgba(255, 158, 0, 0.3) 0%, rgba(230, 57, 70, 0.3) 100%);
+    border-color: rgba(255, 209, 102, 0.5);
+  }
+
+  .dock-btn.active,
+  .dock-btn:active {
+    background: rgba(255, 209, 102, 0.2);
+    border-color: rgba(255, 209, 102, 0.6);
+  }
+
+  .dock-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .dock-text {
+    display: block !important;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    letter-spacing: 0.2px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Modales optimizados para pantalla completa táctil */
+  .modal-card {
+    padding: 22px 16px;
+    border-radius: 22px;
+    width: 94vw;
+    max-height: 88vh;
+  }
+
+  /* Modal de Foto Polaroid: imagen cuadrada 1:1 completa sin recortes */
+  .photo-card {
+    padding: 16px 14px;
+    max-width: 92vw;
+  }
+
+  .polaroid-image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 48vh;
+  }
+
+  .polaroid-title {
+    font-size: 1.45rem;
+  }
+
+  .polaroid-text {
+    font-size: 0.88rem;
+  }
+
+  /* Modal de Carta de Amor en Pergamino */
+  .letter-card.parchment-paper {
+    padding: 22px 16px 18px;
+    width: 94vw;
+    max-height: 88vh;
+  }
+
+  .letter-title {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  .letter-scroll-body {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-height: 52vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .celebrate-btn {
+    font-size: 0.88rem;
+    padding: 12px 14px;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .wax-seal {
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+
+  /* Modal de 60 Razones */
+  .reasons-card {
+    padding: 20px 14px;
+    width: 94vw;
+    max-height: 88vh;
+  }
+
+  .reason-number {
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+  }
+
+  .reasons-anniversary-subtitle {
+    font-size: 0.78rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .reason-box {
+    padding: 18px 12px;
+    min-height: 105px;
+    margin-bottom: 16px;
+  }
+
+  .reason-content {
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .reason-nav-btn,
+  .reason-random-btn {
+    font-size: 0.78rem;
+    padding: 8px 11px;
+  }
+
+  /* Modal de Deseos */
+  .wish-card {
+    padding: 20px 15px;
+    width: 94vw;
+    max-height: 88vh;
+  }
+
+  .modal-heading {
+    font-size: 1.3rem;
+  }
+
+  .modal-desc {
+    font-size: 0.82rem;
+    margin-bottom: 12px;
+  }
+
+  .wish-input-wrapper textarea {
+    font-size: 16px; /* 16px evita zoom forzado en iPhone/Safari */
+    height: 75px;
+    padding: 10px;
+  }
+
+  .quick-tags {
+    gap: 5px;
+  }
+
+  .wish-tag {
+    font-size: 0.76rem;
+    padding: 5px 8px;
+  }
+
+  .primary-action-btn {
+    font-size: 0.9rem;
+    padding: 12px 16px;
+  }
+
+  /* Pantalla de bienvenida (Intro) */
+  .intro-card {
+    padding: 24px 16px 20px;
+    border-radius: 22px;
+    max-height: 90vh;
+    width: 94vw;
+  }
+
+  .lantern-intro-icon {
+    font-size: 3rem;
+    margin-bottom: 6px;
+  }
+
+  .intro-badge {
+    font-size: 0.78rem;
+    padding: 4px 12px;
+    margin-bottom: 8px;
+  }
+
+  .intro-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .intro-message-box {
+    padding: 14px 14px;
+    margin-bottom: 16px;
+  }
+
+  .intro-quote {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+
+  .intro-text {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .intro-subtext {
+    font-size: 0.82rem;
+  }
+
+  .start-btn {
+    font-size: 0.88rem;
+    padding: 13px 14px;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  .intro-author {
+    font-size: 0.75rem;
+    margin-top: 8px;
+  }
+
+  /* Notificación Flotante (Toast) */
+  .floating-toast {
+    bottom: calc(env(safe-area-inset-bottom, 10px) + 70px);
+    width: 92vw;
+    max-width: 380px;
+    font-size: 0.8rem;
+    padding: 8px 14px;
+    justify-content: center;
+  }
+}
+
+/* Pantallas pequeñas (iPhone SE / celulares angostos <= 380px) */
+@media (max-width: 380px) {
+  .romantic-title {
+    font-size: 1.15rem;
+  }
+
+  .romantic-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .counter-units .unit span {
+    font-size: 0.85rem;
+  }
+
+  .dock-text {
+    font-size: 0.58rem !important;
+  }
+
+  .dock-icon {
+    font-size: 1.15rem;
+  }
+}
